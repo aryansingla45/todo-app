@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+<div class="content">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}  <!-- CSRF protection -->
+
+        <fieldset>
+            <!-- Email Field -->
+            <div class="form-group">
+                {{ form.email.label }} 
+                {{ form.email }}
+                {% for error in form.email.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+            </div>
+            <!-- Password Field -->
+            <div class="form-group">
+                {{ form.password.label }} 
+                {{ form.password }}
+                {% for error in form.password.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+            </div>
+            <div>
+                {{ form.remember.label }} 
+                {{ form.remember }}
+                {% for error in form.remember.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+            </div>
+            <br>
+
+            <!-- Submit Button -->
+            <div class="form-group">
+                {{ form.submit }}
+            </div>
+
+        </fieldset>
+    </form>
+
+    <p class="already-account">
+        Forgot Password? <a href="{{ url_for('forgot') }}">Click Here</a>
+    </p>
+    
+</div>
+
+<p class="form-group">
+    Need an Account? <a href="{{ url_for('register') }}">Register Here</a>
+</p>
+    
+{% endblock %}
