@@ -1,7 +1,16 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField , BooleanField , SelectField
+from wtforms import StringField, PasswordField, SubmitField , BooleanField , SelectField , TextAreaField , DateField
 from wtforms.validators import DataRequired, Length, Email, EqualTo , ValidationError
 from todoapp.models import User, Employer , Employee
+
+
+class TaskForm(FlaskForm):
+    task_name = StringField('Task Name', validators=[DataRequired(), Length(min=3, max=40)])
+    task_description = TextAreaField('Task Description', validators=[DataRequired(), Length(min=10, max=200)])
+    employee = SelectField('Assign to Employee', coerce=int, validators=[DataRequired()])
+    task_deadline = DateField('Task Deadline', validators=[DataRequired()])
+    task_status = SelectField('Task Status', choices=[('Pending', 'Pending'), ('In Progress', 'In Progress'), ('Completed', 'Completed')], default='Pending')
+    submit = SubmitField('Add Task')
 
 
 class LoginForm(FlaskForm):
@@ -38,20 +47,16 @@ class Registerform(FlaskForm):
     
 
     def validate_reference_id(self, reference_id):
-        # Check if the role is Employer and if the reference_id is already taken in the Employer table
         if self.role.data == 'Employer':
             employer = Employer.query.filter_by(reference_id=reference_id.data).first()
             if employer:
                 raise ValidationError('That reference ID is already taken by another employer. Please choose a different one.')
 
-        # Check if the reference_id exists for an Employee or User
         user = User.query.filter_by(reference_id=reference_id.data).first()
         if user:
             if self.role.data == 'Employee':
-                # Allow multiple employees with the same reference_id (no problem)
                 return
             
-            # For other roles, raise validation error if reference_id exists
             raise ValidationError('This reference ID is already taken. Please choose a different one.')
 
         

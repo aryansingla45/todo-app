@@ -45,5 +45,14 @@ class Task(db.Model):
     task_name = db.Column(db.String(40), nullable=False)
     task_description = db.Column(db.String(200), nullable=False)
     task_status = db.Column(db.String(20), nullable=False)
+    task_deadline = db.Column(db.Date, nullable=True)  # Add the task deadline field
 
     employee_id = db.Column(db.Integer, db.ForeignKey('employee.id'), nullable=False)
+
+    def __repr__(self):
+        return f"Task('{self.task_name}', '{self.task_status}', '{self.task_deadline}')"
+    
+    def update_status(self, status):
+        self.task_status = status
+        db.session.commit()
+

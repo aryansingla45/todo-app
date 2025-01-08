@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Employee Dashboard{% endblock %}
+
+{% block body %}
+    <h2>Welcome to your Dashboard, {{ current_user.username }}</h2>
+    <h3>Your Tasks:</h3>
+
+    <!-- Display tasks in a styled table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Task ID</th>
+                <th>Task Name</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Deadline</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.task_id }}</td>
+                <td>{{ task.task_name }}</td>
+                <td>{{ task.task_description }}</td>
+                <td>{{ task.task_status }}</td>
+                <td>{{ task.task_deadline }}</td>
+                <td>
+                    {% if task.task_status == 'Pending' %}
+                        <form action="{{ url_for('update_task_status', task_id=task.task_id) }}" method="POST">
+                            <select name="task_status">
+                                <option value="In Progress">In Progress</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                            <button type="submit">Update Status</button>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6">No tasks assigned yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

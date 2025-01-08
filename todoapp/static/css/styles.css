@@ -5,6 +5,7 @@ body {
     padding: 0;
     background-color: #f0f4f8; /* Soft light background color */
     color: #333; /* Default text color */
+    line-height: 1.6;
 }
 
 /* Navbar Styling */
@@ -75,20 +76,21 @@ nav {
 .content {
     width: 80%;
     margin: 40px auto;
-    /* padding: 10px; */
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 30px;
 }
 
+/* General Form Styles */
 form {
     display: flex;
     flex-direction: column;
+    gap: 15px;
 }
 
 fieldset {
     border: none;
-
 }
 
 legend {
@@ -101,15 +103,14 @@ legend {
 .form-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px; /* Space between each form group */
+    margin-bottom: 15px;
 }
 
-/* Ensuring there is no extra space between labels and inputs */
 label {
     font-size: 16px;
     font-weight: 500;
     color: #2b3e5e;
-    margin-bottom: 5px; /* Reduced space between label and input */
+    margin-bottom: 5px;
 }
 
 input, select, textarea {
@@ -119,7 +120,7 @@ input, select, textarea {
     border-radius: 8px;
     transition: border-color 0.3s ease;
     background-color: #f9f9f9;
-    margin-top: 5px; /* Minimal space between label and field */
+    margin-top: 5px;
 }
 
 input:focus, select:focus, textarea:focus {
@@ -151,6 +152,58 @@ button:hover {
     margin-top: 5px;
 }
 
+/* Employee Dashboard Table */
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #2b3e5e;
+    color: white;
+    font-weight: 600;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+table button {
+    padding: 8px 15px;
+    background-color: #58a6f1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+table button:hover {
+    background-color: #0d3c57;
+}
+
+/* Task View Form */
+.task-view {
+    width: 80%;
+    margin: 30px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
 /* Media Queries for responsiveness */
 @media (max-width: 768px) {
     .logo {
@@ -165,8 +218,17 @@ button:hover {
         gap: 10px;
     }
 
-    .content {
+    .content, .task-view {
         width: 90%;
+        padding: 20px;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    table th, table td {
+        padding: 10px;
     }
 }
 
@@ -187,7 +249,126 @@ button:hover {
         gap: 10px;
     }
 
+    .content, .task-view {
+        width: 95%;
+    }
+
+    table {
+        width: 100%;
+    }
+}
+
+
+/* Base Styling for Form Content */
+.content {
+    width: 80%;
+    margin: 40px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 30px; /* Add padding for spacing */
+}
+
+/* Form elements */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+fieldset {
+    border: none;
+}
+
+h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #2b3e5e;
+    margin-bottom: 20px;
+}
+
+/* Consistent form group styling */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px; /* Increased margin between form groups */
+}
+
+label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #2b3e5e;
+    margin-bottom: 5px;
+}
+
+input, select, textarea {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-top: 5px;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #58a6f1; /* Blue border on focus */
+    outline: none;
+}
+
+/* Buttons */
+button {
+    padding: 12px 20px;
+    background-color: #0d3c57;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #58a6f1; /* Blue hover effect */
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Error message styling */
+.error {
+    color: #f44336;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Account links */
+.already-account, .form-group a {
+    font-size: 14px;
+    color: #2b3e5e;
+    text-decoration: none;
+}
+
+.already-account a:hover {
+    color: #58a6f1;
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 768px) {
+    .content {
+        width: 90%;
+    }
+
+    .form-group {
+        margin-bottom: 15px; /* Reduced margin */
+    }
+}
+
+@media (max-width: 480px) {
     .content {
         width: 95%;
     }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
 }
+

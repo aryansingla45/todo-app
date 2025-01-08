@@ -1,0 +1,65 @@
+{% extends 'employer_dashboard.html' %}
+
+{% block title %}Add Task{% endblock %}
+
+{% block task_content %}
+    <div class="content">
+        <form method="POST">
+            {{ form.hidden_tag() }} <!-- CSRF protection -->
+
+            <fieldset>
+                <h3>Add a New Task</h3>
+
+                <!-- Task Name Field -->
+                <div class="form-group">
+                    <label for="task_name">Task Name</label>
+                    {{ form.task_name(size=32) }}
+                    {% for error in form.task_name.errors %}
+                        <p class="error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <!-- Task Description Field -->
+                <div class="form-group">
+                    <label for="task_description">Task Description</label>
+                    {{ form.task_description(size=128) }}
+                    {% for error in form.task_description.errors %}
+                        <p class="error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <!-- Assign to Employee Field -->
+                <div class="form-group">
+                    <label for="employee">Assign to Employee</label>
+                    {{ form.employee() }}
+                    {% for error in form.employee.errors %}
+                        <p class="error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <!-- Task Deadline Field -->
+                <div class="form-group">
+                    <label for="task_deadline">Task Deadline</label>
+                    {{ form.task_deadline() }}
+                    {% for error in form.task_deadline.errors %}
+                        <p class="error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <!-- Task Status Field -->
+                <div class="form-group">
+                    <label for="task_status">Task Status</label>
+                    {{ form.task_status() }}
+                    {% for error in form.task_status.errors %}
+                        <p class="error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-group">
+                    <button type="submit">Add Task</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}
