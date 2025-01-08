@@ -5,7 +5,6 @@ from todoapp.models import User , Employer, Employee
 from flask_login import login_user , current_user , logout_user , login_required
 
 
-
 @app.route('/')
 def home():
     if current_user.is_authenticated:
@@ -15,6 +14,8 @@ def home():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+
 
 @app.route('/login' , methods = ['GET' , 'POST'])
 def login():
@@ -29,10 +30,19 @@ def login():
             if next_page:
                 return redirect(next_page)
             else:
-                return redirect(url_for('dashboard'))
+                email = form.email.data
+                query_result = Employee.query.filter_by(email = email).first()
+                if query_result:
+                    return redirect(url_for('dashboard_employee'))
+                else:
+                    return redirect(url_for('dashboard_employer'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html' , form = form)
+
+
+
+
 
 @app.route('/register' , methods = ['GET' , 'POST'])
 def register():
@@ -41,22 +51,53 @@ def register():
     form = Registerform()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username = form.username.data , email = form.email.data , password = hashed_password)
+        user = User(username = form.username.data , email = form.email.data , password = hashed_password , role = form.role.data , reference_id = form.reference_id.data)
         db.session.add(user)
         db.session.commit()
-        flash(f'Your account has been created.', 'success')
-        return redirect(url_for('login'))
+
+        user_id = user.id
+
+        if form.role.data == 'Employer':
+            employer = Employer(id = user_id, name = form.username.data , reference_id = form.reference_id.data)
+            db.session.add(employer)
+            db.session.commit()
+
+            flash(f'Your account has been created for {form.role.data}.', 'success')
+            return redirect(url_for('login'))
+            
+        elif form.role.data == 'Employee':
+            employee = Employee(id = user_id , name = form.username.data , reference_id = form.reference_id.data)
+            db.session.add(employee)
+            db.session.commit()
+
+            flash(f'Your account has been created for {form.role.data}.', 'success')
+            return redirect(url_for('login'))
+        else:
+            flash(f"Erorr in creating account", 'danger')
+   
     return render_template('register.html' , form = form)
 
+
+
+
+
+
+
+    
 @app.route('/forgot')
 def forgot():
     return render_template('forgot.html')
 
 
-@app.route('/dashboard')
+@app.route('/dashboard_employer')
 @login_required
-def dashboard():
-    return render_template('dashboard.html')
+def dashboard_employer():
+    return render_template('dashboard_employer.html')
+
+@app.route('/dashboard_employee')
+@login_required
+def dashboard_employee():
+    return render_template('dashboard_employee.html')
 
 
 @app.route('/logout')

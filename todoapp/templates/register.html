@@ -47,6 +47,22 @@
                     {% endfor %}
                 </div>
 
+                <div class="form-group">
+                    {{ form.role.label }} 
+                    {{ form.role }}
+                    {% for error in form.role.errors %}
+                        <p class="error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.reference_id.label }}
+                    {{ form.reference_id(class="form-control") }}
+                    {% for error in form.reference_id.errors %}
+                        <p class="error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
                 <br>
 
                 <!-- Submit Button -->
