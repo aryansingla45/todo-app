@@ -2,13 +2,18 @@
 
 {% block title %}Add Task{% endblock %}
 
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
 {% block task_content %}
+
     <div class="content">
         <form method="POST">
             {{ form.hidden_tag() }} <!-- CSRF protection -->
 
             <fieldset>
-                <h3>Add a New Task</h3>
+                <legend>Add a New Task</legend>
 
                 <!-- Task Name Field -->
                 <div class="form-group">
@@ -19,10 +24,10 @@
                     {% endfor %}
                 </div>
 
-                <!-- Task Description Field -->
+                <!-- Task Description Field (Textarea) -->
                 <div class="form-group">
                     <label for="task_description">Task Description</label>
-                    {{ form.task_description(size=128) }}
+                    <textarea name="task_description" rows="6" placeholder="Enter task details here">{{ form.task_description.data }}</textarea>
                     {% for error in form.task_description.errors %}
                         <p class="error">{{ error }}</p>
                     {% endfor %}

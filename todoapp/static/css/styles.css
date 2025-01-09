@@ -1,256 +1,223 @@
-/* Basic Styling for Body */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* General Reset */
+* {
     margin: 0;
     padding: 0;
-    background-color: #f0f4f8; /* Soft light background color */
-    color: #333; /* Default text color */
-    line-height: 1.6;
+    box-sizing: border-box;
 }
 
-/* Navbar Styling */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    background: linear-gradient(135deg, #2b3e5e, #0d3c57);
-    color: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
-    position: sticky;
-    top: 0;
-    z-index: 1000; /* Keeps navbar on top */
+/* Body Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f9; /* Light background */
+    color: #333;
+    margin: 0;
+    padding: 0;
 }
 
-.logo {
-    font-size: 30px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    width: 18%;
-}
-
-.nav-links {
-    display: flex;
-    gap: 25px;
-}
-
-.nav-links a {
-    color: white;
-    text-decoration: none;
-    padding: 10px 20px;
-    background-color: #444;
-    border-radius: 25px;
-    transition: all 0.3s ease;
-    font-size: 16px;
-    font-weight: 500;
-}
-
-.nav-links a:hover {
-    background-color: #58a6f1; /* Blue hover effect */
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.auth-links {
-    display: flex;
-    gap: 20px;
-}
-
-.auth-links a {
-    color: white;
-    text-decoration: none;
-    background-color: #444;
-    padding: 10px 20px;
-    border-radius: 25px;
-    transition: all 0.3s ease;
-}
-
-.auth-links a:hover {
-    background-color: #58a6f1; /* Blue hover effect */
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* Styling for Form Page */
-.content {
-    width: 80%;
-    margin: 40px auto;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    padding: 30px;
-}
-
-/* General Form Styles */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-fieldset {
-    border: none;
-}
-
-legend {
-    font-size: 24px;
-    font-weight: 600;
+/* Header Styling */
+h2, h3 {
+    font-size: 28px;
     color: #2b3e5e;
     margin-bottom: 20px;
 }
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
+h2 {
+    font-weight: bold;
 }
 
-label {
-    font-size: 16px;
+h3 {
+    font-size: 24px;
+    font-weight: normal;
+}
+
+/* Navigation */
+nav {
+    background-color: #0d3c57;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 30px;
+    align-items: center;
+}
+
+nav .logo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav .nav-links a,
+nav .auth-links a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
     font-weight: 500;
-    color: #2b3e5e;
+}
+
+nav .auth-links {
+    display: flex;
+}
+
+nav .auth-links a:hover,
+nav .nav-links a:hover {
+    color: #58a6f1;
+}
+
+/* Flash Messages */
+.flash-messages ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background-color: #f8d7da;
+    color: #721c24;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.flash-messages ul li {
+    margin: 5px 0;
+}
+
+.flash-messages .success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.flash-messages .error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Container for Pages */
+.container {
+    padding: 20px;
+}
+
+/* Form Styling */
+form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+form .form-group {
+    margin-bottom: 20px;
+}
+
+form .form-group label {
+    font-weight: bold;
+    display: block;
     margin-bottom: 5px;
 }
 
-input, select, textarea {
-    padding: 12px;
-    font-size: 16px;
+form .form-group input,
+form .form-group select,
+form .form-group button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
     border: 1px solid #ddd;
-    border-radius: 8px;
-    transition: border-color 0.3s ease;
-    background-color: #f9f9f9;
-    margin-top: 5px;
 }
 
-input:focus, select:focus, textarea:focus {
-    border-color: #58a6f1; /* Blue border on focus */
-    outline: none;
-}
-
-button {
-    padding: 12px 20px;
+form button[type="submit"] {
     background-color: #0d3c57;
     color: white;
-    font-size: 18px;
-    font-weight: 600;
-    border: none;
-    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s;
 }
 
-button:hover {
-    background-color: #58a6f1; /* Blue hover effect for button */
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+form button[type="submit"]:hover {
+    background-color: #58a6f1;
 }
 
-.error {
-    color: #f44336;
-    font-size: 14px;
-    margin-top: 5px;
-}
-
-/* Employee Dashboard Table */
+/* Table Styling */
 table {
-    width: 90%;
-    margin: 20px auto;
+    width: 100%;
+    margin-top: 20px;
     border-collapse: collapse;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
-table th, table td {
-    padding: 12px;
-    text-align: center;
+table th,
+table td {
+    padding: 10px;
+    text-align: left;
     border: 1px solid #ddd;
 }
 
 table th {
-    background-color: #2b3e5e;
-    color: white;
-    font-weight: 600;
+    background-color: #f0f0f0;
 }
 
 table tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-table tr:hover {
-    background-color: #f1f1f1;
-}
-
-table button {
-    padding: 8px 15px;
-    background-color: #58a6f1;
+table td form button {
+    background-color: #f44336;
     color: white;
     border: none;
+    padding: 5px 10px;
     border-radius: 5px;
-    cursor: pointer;
-    font-weight: 500;
 }
 
-table button:hover {
+table td form button:hover {
+    background-color: #d32f2f;
+}
+
+/* Account Information */
+.account-container {
+    margin-top: 40px;
+}
+
+.account-info-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.account-info-card h2 {
+    margin-bottom: 20px;
+}
+
+.account-info p {
+    margin: 10px 0;
+}
+
+.account-info .btn {
+    background-color: #58a6f1;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.account-info .btn:hover {
     background-color: #0d3c57;
 }
 
-/* Task View Form */
-.task-view {
-    width: 80%;
-    margin: 30px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+/* Form error message styling */
+.error {
+    color: red;
+    font-size: 12px;
 }
 
-/* Media Queries for responsiveness */
+/* Responsive Design */
 @media (max-width: 768px) {
-    .logo {
-        font-size: 24px;
-    }
-
-    .nav-links {
-        gap: 15px;
-    }
-
-    .auth-links {
-        gap: 10px;
-    }
-
-    .content, .task-view {
-        width: 90%;
-        padding: 20px;
-    }
-
-    table {
-        width: 100%;
-    }
-
-    table th, table td {
-        padding: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .logo {
-        font-size: 20px;
-    }
-
-    .nav-links {
+    nav {
         flex-direction: column;
         align-items: center;
-        gap: 10px;
     }
 
-    .auth-links {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
+    .container {
+        padding: 15px;
     }
 
-    .content, .task-view {
-        width: 95%;
+    form {
+        max-width: 100%;
     }
 
     table {
@@ -258,117 +225,350 @@ table button:hover {
     }
 }
 
-
-/* Base Styling for Form Content */
+/* General Form Styling */
 .content {
-    width: 80%;
-    margin: 40px auto;
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
     background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    padding: 30px; /* Add padding for spacing */
-}
-
-/* Form elements */
-form {
-    display: flex;
-    flex-direction: column;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 fieldset {
     border: none;
+    padding: 0;
 }
 
-h3 {
+legend {
     font-size: 24px;
-    font-weight: 600;
-    color: #2b3e5e;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.form-group {
     margin-bottom: 20px;
 }
 
-/* Consistent form group styling */
-.form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px; /* Increased margin between form groups */
-}
-
-label {
+.form-group label {
     font-size: 16px;
-    font-weight: 500;
-    color: #2b3e5e;
-    margin-bottom: 5px;
+    color: #333;
 }
 
-input, select, textarea {
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
     padding: 12px;
-    font-size: 16px;
-    border: 1px solid #ddd;
     border-radius: 8px;
+    border: 1px solid #ddd;
     background-color: #f9f9f9;
-    margin-top: 5px;
+    font-size: 16px;
+    margin-top: 8px;
 }
 
-input:focus, select:focus, textarea:focus {
-    border-color: #58a6f1; /* Blue border on focus */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #58a6f1;
     outline: none;
 }
 
-/* Buttons */
-button {
-    padding: 12px 20px;
+.form-group p.error {
+    color: red;
+    font-size: 14px;
+}
+
+/* Submit Button Styling */
+.form-group button {
+    background-color: #58a6f1;
+    padding: 12px;
+    border-radius: 8px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    width: 100%;
+}
+
+.form-group button:hover {
+    background-color: #0d3c57;
+}
+
+/* Button links for Add Task and View Task */
+.task-links {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.task-links a {
+    text-decoration: none;
+    color: #58a6f1;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: 2px solid #58a6f1;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.task-links a:hover {
+    background-color: #58a6f1;
+    color: white;
+}
+
+/* Task Buttons Styling */
+.task-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.task-buttons a {
+    background-color: #58a6f1;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+    border: 2px solid #58a6f1;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.task-buttons a:hover {
     background-color: #0d3c57;
     color: white;
-    font-size: 18px;
-    font-weight: 600;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
 }
 
-button:hover {
-    background-color: #58a6f1; /* Blue hover effect */
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
 
-/* Error message styling */
-.error {
-    color: #f44336;
-    font-size: 14px;
-    margin-top: 5px;
-}
-
-/* Account links */
-.already-account, .form-group a {
-    font-size: 14px;
-    color: #2b3e5e;
+/* Add Task Button Styling */
+.add-task-btn {
+    background-color: #58a6f1;
+    padding: 10px 20px;
+    color: white;
     text-decoration: none;
+    border-radius: 5px;
 }
 
-.already-account a:hover {
+.add-task-btn:hover {
+    background-color: #0d3c57;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 30px;
+    margin-bottom: 40px;
+    justify-content: center;
+}
+
+ul li {
+    background-color: #58a6f1;  /* Button background color */
+    padding: 12px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-align: center;
+}
+
+ul li:hover {
+    background-color: #0d3c57; /* Hover color */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Making Links inside list items look like buttons */
+ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    display: block;
+}
+
+ul li a:hover {
+    color: white;  /* Maintain white color on hover */
+}
+
+/* Optional - Add some padding or spacing around the task content */
+.task-content {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    background-color: white;
+}
+
+/* Task Buttons (optional) */
+.add-task-btn, .view-task-btn {
+    background-color: #58a6f1;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.add-task-btn:hover, .view-task-btn:hover {
+    background-color: #0d3c57;
+}
+
+/* General Form Styling */
+.content {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+fieldset {
+    border: none;
+    padding: 0;
+}
+
+legend {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-size: 16px;
+    color: #333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 8px;
+}
+
+.form-group input:focus {
+    border-color: #58a6f1;
+    outline: none;
+}
+
+.form-group p.error {
+    color: red;
+    font-size: 14px;
+}
+
+.forgot-password {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.forgot-password a {
+    text-decoration: none;
     color: #58a6f1;
 }
 
-/* Media Queries for responsiveness */
-@media (max-width: 768px) {
-    .content {
-        width: 90%;
-    }
-
-    .form-group {
-        margin-bottom: 15px; /* Reduced margin */
-    }
+.forgot-password a:hover {
+    text-decoration: underline;
 }
 
-@media (max-width: 480px) {
-    .content {
-        width: 95%;
-    }
-
-    .form-group {
-        margin-bottom: 10px;
-    }
+.register-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
 }
+
+.register-link a {
+    text-decoration: none;
+    color: #58a6f1;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+/* Button Styling */
+.btn-submit {
+
+    background-color: #58a6f1;
+    color: black;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.btn-submit:hover {
+    background-color: #0d3c57;
+}
+
+/* Remember Me checkbox style */
+.remember-group {
+    display: flex;
+    align-items: center;
+}
+
+.remember-group label {
+    margin-right: 10px;
+}
+
+/* Container for account details and profile image */
+.account-info {
+    display: flex;
+    justify-content: space-between; /* Space between the details and the image */
+    align-items: center; /* Vertically center the content */
+}
+
+/* Container for profile image */
+.profile-img-container {
+    flex-shrink: 0; /* Prevent the image from shrinking */
+    margin-left: 20px; /* Add some space between the account details and image */
+}
+
+/* Profile Image Style */
+.profile-img {
+    width: 100px; /* Set the width of the image */
+    height: 100px; /* Set the height of the image */
+    object-fit: cover; /* Ensure the image covers the container without distortion */
+    border-radius: 50%; /* Make the image round */
+}
+
+/* Modal full-screen image behavior */
+#imageModal .modal-dialog {
+    max-width: 90%;
+    width: 100%;
+    height: 90%;
+}
+
+#imageModal .modal-body {
+    padding: 0;
+    height: 100%;
+}
+
+#imageModal img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensure the image doesn't stretch disproportionately */
+}
+
+
+/* Adjust the position and style of the close button in the modal */
+.modal-header .close {
+    font-size: 2rem;
+    color: #333;
+}
+
+.modal-header .close:hover {
+    color: #ff0000; /* Change color when hovering */
+}
+
 

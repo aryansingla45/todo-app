@@ -4,35 +4,41 @@
     Register
 {% endblock %}
 
-{% block body %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
 
+
+{% block body %}
     <div class="content">
         <form method="POST" action="">
             {{ form.hidden_tag() }}  <!-- CSRF protection -->
 
             <fieldset>
-                <legend> Try it out. </legend>
+                <legend>Create Your Account</legend>
 
                 <!-- Username Field -->
                 <div class="form-group">
                     {{ form.username.label }} 
-                    {{ form.username }}
+                    {{ form.username(class="input-field") }}
                     {% for error in form.username.errors %}
                         <p class="error">{{ error }}</p>
                     {% endfor %}
                 </div>
+
                 <!-- Email Field -->
                 <div class="form-group">
                     {{ form.email.label }} 
-                    {{ form.email }}
+                    {{ form.email(class="input-field") }}
                     {% for error in form.email.errors %}
                         <p class="error">{{ error }}</p>
                     {% endfor %}
                 </div>
+
                 <!-- Password Field -->
                 <div class="form-group">
                     {{ form.password.label }} 
-                    {{ form.password }}
+                    {{ form.password(class="input-field") }}
                     {% for error in form.password.errors %}
                         <p class="error">{{ error }}</p>
                     {% endfor %}
@@ -41,42 +47,42 @@
                 <!-- Confirm Password Field -->
                 <div class="form-group">
                     {{ form.confirm_password.label }} 
-                    {{ form.confirm_password }}
+                    {{ form.confirm_password(class="input-field") }}
                     {% for error in form.confirm_password.errors %}
                         <p class="error">{{ error }}</p>
                     {% endfor %}
                 </div>
 
+                <!-- Role Field -->
                 <div class="form-group">
                     {{ form.role.label }} 
-                    {{ form.role }}
+                    {{ form.role(class="input-field") }}
                     {% for error in form.role.errors %}
                         <p class="error">{{ error }}</p>
                     {% endfor %}
                 </div>
 
+                <!-- Reference ID Field -->
                 <div class="form-group">
-                    {{ form.reference_id.label }}
-                    {{ form.reference_id(class="form-control") }}
+                    {{ form.reference_id.label }} 
+                    {{ form.reference_id(class="input-field") }}
                     {% for error in form.reference_id.errors %}
                         <p class="error">{{ error }}</p>
                     {% endfor %}
                 </div>
 
-                <br>
-
                 <!-- Submit Button -->
                 <div class="form-group">
-                    {{ form.submit }}
+                    {{ form.submit(class="btn-submit") }}
                 </div>
 
             </fieldset>
         </form>
+        <br>
 
-         <!-- Link to Login Page -->
-         <p class="already-account">
-            Already have an account? <a href="{{ url_for('login') }}">Login here!</a>
-        </p>
+        <div class="already-account">
+            Already have an account? <a href="{{ url_for('login') }}">Login here</a>
+        </div>
     </div>
 
 {% endblock %}

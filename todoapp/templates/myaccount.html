@@ -3,7 +3,34 @@
 {% block title %}My Account{% endblock %}
 
 {% block body %}
-    <h1>My Account</h1>
-    <p>Username: {{ current_user.username }}</p>
-    <p>Email: {{ current_user.email }}</p>
+    <div class="account-container">
+        <!-- Account Info Card -->
+        <div class="account-info-card">
+            <h2>Account Information</h2>
+            <div class="account-info">
+                <div class="account-details">
+                    <p><strong>Username:</strong> {{ current_user.username }}</p>
+                    <p><strong>Email:</strong> {{ current_user.email }}</p>
+                    <p><strong>Role:</strong> {{ current_user.role }}</p>
+                    <p><strong>Reference ID:</strong> {{ current_user.reference_id }}</p>
+                </div>
+                
+                <!-- Display Profile Image -->
+                <div class="profile-img-container">
+                    {% if current_user.image_file %}
+                        <img src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}" alt="Profile Image" class="profile-img">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='profile_pics/default.jpg') }}" alt="Default Profile Image" class="profile-img">
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Update Button with Active Style -->
+            <ul>
+                <li><a href="{{ url_for('accountupdate') }}">Update Information</a></li>
+            </ul>
+        </div>
+    </div>
 {% endblock %}
+
+

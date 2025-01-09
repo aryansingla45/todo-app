@@ -1,9 +1,9 @@
 from todoapp.app_init import app , db , bcrypt
 from flask import render_template , flash , redirect , url_for , request
-from todoapp.forms import LoginForm , Registerform , TaskForm
+from todoapp.forms import LoginForm , Registerform , TaskForm , AccountUpdateForm
 from todoapp.models import User , Employer, Employee, Task
 from flask_login import login_user , current_user , logout_user , login_required
-from todoapp.utils import get_user_dashboard
+from todoapp.utils import get_user_dashboard , save_picture
 
 
 @app.route('/')
@@ -86,12 +86,6 @@ def register():
    
     return render_template('register.html' , form = form)
 
-
-
-
-
-
-
     
 @app.route('/forgot')
 def forgot():
@@ -101,10 +95,8 @@ def forgot():
 @app.route('/employer_dashboard')
 @login_required
 def employer_dashboard():
-    # Employer ke reference_id se saare employees ko query karein
     employees = Employee.query.filter_by(reference_id=current_user.reference_id).all()
 
-    # Har employee ke tasks ko retrieve karein
     tasks = []
     for employee in employees:
         tasks.extend(employee.tasks)
@@ -116,7 +108,6 @@ def employer_dashboard():
 @app.route('/employer_dashboard/add', methods=['GET', 'POST'])
 @login_required
 def employer_dashboard_add():
-    # Ensure the user is an employer
     if current_user.role != 'Employer':
         return redirect(url_for('home'))
 
@@ -145,7 +136,6 @@ def employer_dashboard_add():
 @app.route('/employer_dashboard/view')
 @login_required
 def employer_dashboard_view():
-    # Ensure the user is an employer
     if current_user.role != 'Employer':
         return redirect(url_for('home'))
 
@@ -187,11 +177,6 @@ def update_task_status(task_id):
 
 
 
-
-
-
-
-
 @app.route('/logout')
 @login_required
 def logout():
@@ -199,10 +184,36 @@ def logout():
     return redirect(url_for('home'))
 
 
-@app.route('/myaccount')
+@app.route('/myaccount', methods=['GET'])
 @login_required
 def myaccount():
-    return render_template('myaccount.html') 
+    return render_template('myaccount.html')
+
+
+@app.route("/account/update", methods=['GET', 'POST'])
+@login_required
+def accountupdate():
+    form = AccountUpdateForm()
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            current_user.image_file = picture_file
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash('Your account has been updated!', 'success')
+        return redirect(url_for('myaccount'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+
+    # Show the current profile image if available
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return render_template('account_update.html', title='Account', image_file=image_file, form=form)
+
+
+
+
 
 
 
