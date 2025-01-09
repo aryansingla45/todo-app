@@ -1,5 +1,6 @@
-from todoapp.app_init import db, loginmanager
+from todoapp.app_init import app, db, loginmanager
 from flask_login import UserMixin
+from itsdangerous import URLSafeTimedSerializer as Serializer
 
 @loginmanager.user_loader
 def load_user(user_id):
@@ -14,6 +15,20 @@ class User(db.Model, UserMixin):
     role = db.Column(db.String(60), nullable=False)
     reference_id = db.Column(db.String(10), nullable=False) 
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
+
+    def get_reset_token(self, expires_sec=1800):
+        s = Serializer(app.config['SECRET_KEY'] , expires_sec)
+        token = s.dumps({'user_id': self.id} , salt = app.config['SALT'])
+        return token
+    
+    @staticmethod
+    def verify_reset_token(token):
+        s = Serializer(app.config['SECRET_KEY'])
+        try:
+            user_id = s.loads(token , salt = app.config['SALT'] , max_age = 1800)['user_id']
+        except:
+            return None
+        return User.query.get(user_id)
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"

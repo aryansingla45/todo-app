@@ -1,8 +1,9 @@
 from flask import redirect, url_for, flash
 from todoapp.models import Employer, Employee
 import os , secrets
-from todoapp.app_init import app
+from todoapp.app_init import app , mail
 from PIL import Image
+from flask_mail import Message
 
 
 def get_user_dashboard(user_id):
@@ -32,3 +33,12 @@ def save_picture(form_picture):
     i.save(picture_path)
 
     return picture_fn
+
+
+def send_reset_email(user):
+    token = user.get_reset_token()
+    msg = Message('Password Reset Request',sender= "noreply@todo-flaskapp.com", recipients=[user.email])
+    msg.body = f'''To reset your password, visit the following link:
+{url_for('reset_password', token=token, _external=True)}
+ If you did not make this request, simply ignore this email and no changes will be made.'''
+    mail.send(msg)

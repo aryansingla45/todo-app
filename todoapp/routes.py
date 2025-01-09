@@ -1,9 +1,10 @@
-from todoapp.app_init import app , db , bcrypt
+from todoapp.app_init import app , db , bcrypt  , mail
 from flask import render_template , flash , redirect , url_for , request
-from todoapp.forms import LoginForm , Registerform , TaskForm , AccountUpdateForm
+from todoapp.forms import LoginForm , Registerform , TaskForm , AccountUpdateForm , RequestResetForm , ResetPasswordForm
 from todoapp.models import User , Employer, Employee, Task
 from flask_login import login_user , current_user , logout_user , login_required
-from todoapp.utils import get_user_dashboard , save_picture
+from todoapp.utils import get_user_dashboard , save_picture , send_reset_email
+from flask_mail import Message
 
 
 @app.route('/')
@@ -48,9 +49,6 @@ def login():
 
 
 
-
-
-
 @app.route('/register' , methods = ['GET' , 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -87,9 +85,37 @@ def register():
     return render_template('register.html' , form = form)
 
     
-@app.route('/forgot')
+@app.route('/forgot' , methods = ['GET' , 'POST'])
 def forgot():
-    return render_template('forgot.html')
+    if current_user.is_authenticated:
+        user_id = current_user.id
+        return get_user_dashboard(user_id)
+    form = RequestResetForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email = form.email.data).first()
+        send_reset_email(user)
+        flash('An email has been sent with instructions to reset your password.', 'info')
+        redirect(url_for('login'))
+    return render_template('forgot.html' , form = form)
+
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if current_user.is_authenticated:
+        user_id = current_user.id
+        return get_user_dashboard(user_id)
+    user = User.verify_reset_token(token)
+    if user is None:
+        flash('That is an invalid or expired token', 'warning')
+        return redirect(url_for('forgot'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user.password = hashed_password
+        db.session.commit()
+        flash('Your password has been updated! You are now able to log in', 'success')
+        redirect(url_for('login'))
+    return render_template('reset_password.html', form=form)
 
 
 @app.route('/employer_dashboard')
