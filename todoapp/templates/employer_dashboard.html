@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Employer Dashboard{% endblock %}
+{% block title %}About{% endblock %}
 
 {% block head %}
 
@@ -17,8 +17,8 @@
 
     <!-- Navigation for Tasks -->
     <ul>
-        <li><a href="{{ url_for('employer_dashboard_add') }}">Add Task</a></li>
-        <li><a href="{{ url_for('employer_dashboard_view') }}">View Tasks</a></li>
+        <li><a href="{{ url_for('tasks.employer_dashboard_add') }}">Add Task</a></li>
+        <li><a href="{{ url_for('tasks.employer_dashboard_view') }}">View Tasks</a></li>
     </ul>
 
     {% block task_content %}

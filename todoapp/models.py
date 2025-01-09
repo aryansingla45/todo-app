@@ -34,17 +34,6 @@ class User(db.Model, UserMixin):
         return f"User('{self.username}', '{self.email}')"
 
 
-class Employer(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), unique=True, nullable=False)
-    reference_id = db.Column(db.String(10), unique=True, nullable=False)  # Unique for each employer
-
-    employees = db.relationship('Employee', backref='employer', lazy=True)
-
-    def __repr__(self):
-        return f"Employer('{self.name}')"
-
-
 class Employee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
@@ -54,6 +43,19 @@ class Employee(db.Model):
 
     def __repr__(self):
         return f"Employee('{self.name} - {self.reference_id}')"
+    
+
+
+class Employer(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), unique=True, nullable=False)
+    reference_id = db.Column(db.String(10), unique=True, nullable=False)  # Unique for each employer
+
+    employees = db.relationship('Employee', backref='employer', lazy=True)
+
+    def __repr__(self):
+        return f"Employer('{self.name}')"
+    
 
 
 class Task(db.Model):

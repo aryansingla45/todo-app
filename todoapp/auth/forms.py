@@ -1,18 +1,7 @@
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileAllowed
-from wtforms import StringField, PasswordField, SubmitField , BooleanField , SelectField , TextAreaField , DateField, FileField
-from wtforms.validators import DataRequired, Length, Email, EqualTo , ValidationError  
-from flask_login import current_user
+from wtforms import StringField, PasswordField, SubmitField , BooleanField , SelectField
+from wtforms.validators import DataRequired, Length, Email, EqualTo , ValidationError
 from todoapp.models import User, Employer
-
-
-class TaskForm(FlaskForm):
-    task_name = StringField('Task Name', validators=[DataRequired(), Length(min=3, max=40)])
-    task_description = TextAreaField('Task Description', validators=[DataRequired(), Length(min=10, max=200)])
-    employee = SelectField('Assign to Employee', coerce=int, validators=[DataRequired()])
-    task_deadline = DateField('Task Deadline', validators=[DataRequired()])
-    task_status = SelectField('Task Status', choices=[('Pending', 'Pending'), ('In Progress', 'In Progress'), ('Completed', 'Completed')], default='Pending')
-    submit = SubmitField('Add Task')
 
 
 class LoginForm(FlaskForm):
@@ -60,26 +49,6 @@ class Registerform(FlaskForm):
                 return
             
             raise ValidationError('This reference ID is already taken. Please choose a different one.')
-        
-
-class AccountUpdateForm(FlaskForm):
-    username = StringField('Username',validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email',validators=[DataRequired(), Email()])
-    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
-    submit = SubmitField('Update')
-
-    def validate_username(self, username):
-        if username.data != current_user.username:
-            user = User.query.filter_by(username=username.data).first()
-            if user:
-                raise ValidationError('That username is taken. Please choose a different one.')
-
-    def validate_email(self, email):
-        if email.data != current_user.email:
-            user = User.query.filter_by(email=email.data).first()
-            if user:
-                raise ValidationError('That email is taken. Please choose a different one.')
-
         
 
 class RequestResetForm(FlaskForm):          # Email form for password reset
