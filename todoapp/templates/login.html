@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Login{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
@@ -49,13 +49,13 @@
     </form>
 
     <p class="forgot-password">
-        <a href="{{ url_for('forgot') }}">Forgot Password?</a>
+        <a href="{{ url_for('auth.forgot') }}">Forgot Password?</a>
     </p>
 
 </div>
 
 <p class="register-link">
-    Need an Account? <a href="{{ url_for('register') }}">Register Here</a>
+    Need an Account? <a href="{{ url_for('auth.register') }}">Register Here</a>
 </p>
 
 {% endblock %}

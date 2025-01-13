@@ -12,7 +12,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 loginmanager = LoginManager(app)
-loginmanager.login_view = 'login'
+loginmanager.login_view = 'auth.login'
 
 app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = 587
@@ -23,4 +23,13 @@ app.config['MAIL_PASSWORD'] = 'ytss arbn mjvv qaji'
 mail = Mail(app)
 
 # Import routes after app initialization
-from todoapp import routes
+from todoapp.auth.routes import auth
+from todoapp.core.routes import core
+from todoapp.user_management.routes import user_management
+from todoapp.tasks.routes import tasks
+
+
+app.register_blueprint(auth)
+app.register_blueprint(core)
+app.register_blueprint(user_management)
+app.register_blueprint(tasks)

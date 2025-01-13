@@ -5,7 +5,11 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Todo Checker{% endblock %}</title>
+    <title>
+        {% block title %}
+        
+        {% endblock %}
+    </title>
 
     <!-- Bootstrap CSS -->
     <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -22,15 +26,15 @@
             Todo Checker
         </div>
         <div class="nav-links">
-            <a href="{{ url_for('home') }}" class="nav-link">Home</a>
+            <a href="{{ url_for('core.home') }}" class="nav-link">Home</a>
         </div>
         <div class="auth-links">
             {% if current_user.is_authenticated %}
-                <a href="{{ url_for('myaccount') }}" class="nav-link">My Account</a>
-                <a href="{{ url_for('logout') }}" class="nav-link">Logout</a>
+                <a href="{{ url_for('user_management.myaccount') }}" class="nav-link">My Account</a>
+                <a href="{{ url_for('auth.logout') }}" class="nav-link">Logout</a>
             {% else %}
-                <a href="{{ url_for('login') }}" class="nav-link">Login</a>
-                <a href="{{ url_for('register') }}" class="nav-link">Register</a>
+                <a href="{{ url_for('auth.login') }}" class="nav-link">Login</a>
+                <a href="{{ url_for('auth.register') }}" class="nav-link">Register</a>
             {% endif %}
         </div>
     </nav>
