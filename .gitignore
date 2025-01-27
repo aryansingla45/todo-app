@@ -173,3 +173,7 @@ cython_debug/
 
 
 todoapp/static/prefile_pics
+todoapp/auth/__pycache__
+todoapp/core/__pycache__
+todoapp/tasks/__pycache__
+todoapp/user_management/__pycache__
